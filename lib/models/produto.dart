@@ -21,7 +21,8 @@ class Produto {
       preco: json['preco'].toDouble(),
       nome: json['nome'],
       descricao: json['descricao'],
-      img: json['img'],
+      img: json['img'] ??
+          "https://theme-assets.getbento.com/sensei/a27f753.sensei/assets/images/catering-item-placeholder-704x520.png",
       idCategoria: json['id_categoria'],
     );
   }
