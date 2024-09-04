@@ -1,9 +1,23 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "storage": {
-    "rules": "storage.rules"
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "nowait-48142",
+          "appId": "1:854170092423:android:f21d451f431d101c568922",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "nowait-48142",
+          "configurations": {
+            "android": "1:854170092423:android:f21d451f431d101c568922",
+            "ios": "1:854170092423:ios:0c2902536e9b09a7568922",
+            "web": "1:854170092423:web:799ff35bdfa2b94b568922"
+          }
+        }
+      }
+    }
   }
 }

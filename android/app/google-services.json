@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854170092423",
+    "project_id": "nowait-48142",
+    "storage_bucket": "nowait-48142.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854170092423:android:f21d451f431d101c568922",
+        "android_client_info": {
+          "package_name": "com.example.no_wait"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmJoW1FlhRFjzOZd8PV_G4o9uIXLlek5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
