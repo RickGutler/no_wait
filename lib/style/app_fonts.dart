@@ -7,4 +7,10 @@ class AppFonts {
       fontSize: 12,
       fontWeight: FontWeight.bold,
       color: AppColors.corPrincipal);
+
+  static const TextStyle headlineSmall = TextStyle(
+      fontFamily: 'inter',
+      fontSize: 30,
+      fontWeight: FontWeight.bold,
+      color: AppColors.corPrincipal);
 }
