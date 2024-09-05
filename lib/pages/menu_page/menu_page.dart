@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_wait/carrinho_controller.dart';
 import 'package:no_wait/components/app_bar_customizada_menu.dart';
 import 'package:no_wait/components/botao_categoria.dart';
 import 'package:no_wait/components/botao_principal.dart';
@@ -6,6 +7,7 @@ import 'package:no_wait/components/card_produto.dart';
 import 'package:no_wait/models/produto.dart';
 import 'package:no_wait/pages/menu_page/menu_page_controller.dart';
 import 'package:no_wait/style/app_colors.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -107,25 +109,99 @@ class _MenuPageState extends State<MenuPage> {
                         }).toList(),
                       );
                     }
-                    return const Center(child: Text('Carregando...'));
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: SizedBox(
+                            width: 100,
+                            child: Container(
+                              height: 20,
+                              width: 70,
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: const CardProdutoShimmer(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    );
                   },
                 ),
+                const SizedBox(height: 40),
               ],
             ),
           ),
           Container(
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BotaoPrincipal(onPressed: () {}, texto: 'Ver Pedido'),
+                    Expanded(
+                        child: BotaoPrincipal(
+                      onPressed: () {},
+                      texto: 'Ver Pedido',
+                      suffix: const QuantidadeItensPedido(),
+                    )),
                   ],
                 ),
               ))
         ],
       ),
     );
+  }
+}
+
+class QuantidadeItensPedido extends StatelessWidget {
+  const QuantidadeItensPedido({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    CarrinhoController controller = CarrinhoController();
+
+    return ValueListenableBuilder(
+        valueListenable: controller.itensCarrinho,
+        builder: (context, itens, _) {
+          if (itens.isNotEmpty) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 20),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadiusDirectional.circular(15)),
+                  child: Center(
+                    child: Text(
+                      controller.qtdItensCarrinhoTotal().toString(),
+                      style: const TextStyle(
+                          color: AppColors.corPrincipal,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+          return const SizedBox();
+        });
   }
 }

@@ -1,31 +1,30 @@
+import 'package:no_wait/models/produto.dart';
+
 class ItensPedido {
-  final int idPedido;
-  final int idProduto;
-  final int quantidade;
-  final double subtotal;
+  final Produto produto;
+  int quantidade;
 
   ItensPedido({
-    required this.idPedido,
-    required this.idProduto,
+    required this.produto,
     required this.quantidade,
-    required this.subtotal,
   });
 
   factory ItensPedido.fromJson(Map<String, dynamic> json) {
     return ItensPedido(
-      idPedido: json['id_pedido'],
-      idProduto: json['id_produto'],
+      produto: Produto.fromJson(json['produto']),
       quantidade: json['quantidade'],
-      subtotal: json['subtotal'].toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id_pedido': idPedido,
-      'id_produto': idProduto,
+      'id_produto': produto.id,
       'quantidade': quantidade,
-      'subtotal': subtotal,
+      'subtotal': calcularSubTotal(),
     };
+  }
+
+  double calcularSubTotal() {
+    return produto.preco * quantidade;
   }
 }

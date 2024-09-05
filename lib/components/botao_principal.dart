@@ -4,6 +4,7 @@ import 'package:no_wait/style/app_colors.dart';
 class BotaoPrincipal extends StatelessWidget {
   final String texto;
   final Function onPressed;
+  final Widget? suffix;
   final ValueNotifier<bool>? carregando;
 
   const BotaoPrincipal({
@@ -11,6 +12,7 @@ class BotaoPrincipal extends StatelessWidget {
     required this.onPressed,
     required this.texto,
     this.carregando,
+    this.suffix,
   });
 
   @override
@@ -25,24 +27,31 @@ class BotaoPrincipal extends StatelessWidget {
               color: AppColors.corPrincipal,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60.0),
-              child: loading
-                  ? const SizedBox(
-                      height: 26,
-                      width: 26,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      texto,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 60.0),
+                  child: loading
+                      ? const SizedBox(
+                          height: 26,
+                          width: 26,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          texto,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+                suffix ?? const SizedBox()
+              ],
             ),
           ),
         );
