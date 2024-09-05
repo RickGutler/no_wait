@@ -18,12 +18,28 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   MenuPageController controller = MenuPageController();
+  final ScrollController _scrollController = ScrollController();
+  final Map<int, GlobalKey> _categoriaKeys = {};
 
   @override
   void initState() {
     super.initState();
     controller.carregarCategorias();
     controller.carregarProdutos();
+  }
+
+  void _scrollToCategoria(int categoriaId) {
+    final categoriaKey = _categoriaKeys[categoriaId];
+    if (categoriaKey != null) {
+      final context = categoriaKey.currentContext;
+      if (context != null) {
+        Scrollable.ensureVisible(
+          context,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    }
   }
 
   @override
@@ -36,6 +52,7 @@ class _MenuPageState extends State<MenuPage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
             child: ListView(
+              controller: _scrollController,
               children: [
                 ValueListenableBuilder(
                   valueListenable: controller.carregandoCategorias,
@@ -47,8 +64,12 @@ class _MenuPageState extends State<MenuPage> {
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.categorias.length,
                           itemBuilder: (context, index) {
-                            return BotaoCategoria(
-                              categoria: controller.categorias[index],
+                            final categoria = controller.categorias[index];
+                            return GestureDetector(
+                              onTap: () => _scrollToCategoria(categoria.id),
+                              child: BotaoCategoria(
+                                categoria: categoria,
+                              ),
                             );
                           },
                         ),
@@ -74,6 +95,9 @@ class _MenuPageState extends State<MenuPage> {
                     if (!carregando) {
                       return Column(
                         children: controller.categorias.map((categoria) {
+                          _categoriaKeys[categoria.id] =
+                              GlobalKey(); // Adicionar chave global para a categoria
+
                           List<Produto> produtosFiltrados = controller.produtos
                               .where((p) => p.idCategoria == categoria.id)
                               .toList();
@@ -83,6 +107,8 @@ class _MenuPageState extends State<MenuPage> {
                           }
 
                           return Column(
+                            key: _categoriaKeys[
+                                categoria.id], // Associar chave à categoria
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
