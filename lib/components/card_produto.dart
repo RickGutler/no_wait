@@ -19,7 +19,7 @@ class _CardProdutoState extends State<CardProduto> {
     CarrinhoController carrinhoController = CarrinhoController();
 
     return Container(
-      height: 105,
+      height: 120,
       margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
         color: AppColors.corPrincipal,
