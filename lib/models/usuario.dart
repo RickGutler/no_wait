@@ -1,7 +1,7 @@
 class Usuario {
-  final int id;
-  final String nome;
-  final String cpf;
+  int id;
+  String nome;
+  String cpf;
 
   Usuario({required this.id, required this.nome, required this.cpf});
 

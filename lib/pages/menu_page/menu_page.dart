@@ -18,6 +18,7 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   MenuPageController controller = MenuPageController();
+  CarrinhoController carrinhoController = CarrinhoController();
   final ScrollController _scrollController = ScrollController();
   final Map<int, GlobalKey> _categoriaKeys = {};
 
@@ -180,11 +181,16 @@ class _MenuPageState extends State<MenuPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                        child: BotaoPrincipal(
-                      onPressed: () {},
-                      texto: 'Ver Pedido',
-                      suffix: const QuantidadeItensPedido(),
-                    )),
+                      child: BotaoPrincipal(
+                        onPressed: () {
+                          if (carrinhoController.qtdItensCarrinhoTotal() > 0) {
+                            Navigator.pushNamed(context, '/carrinho');
+                          }
+                        },
+                        texto: 'Ver Pedido',
+                        suffix: const QuantidadeItensPedido(),
+                      ),
+                    ),
                   ],
                 ),
               ))

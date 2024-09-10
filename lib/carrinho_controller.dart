@@ -51,4 +51,11 @@ class CarrinhoController extends ChangeNotifier {
         (total, item) =>
             total + item.produto.id == produto.id ? item.quantidade : 0);
   }
+
+  double calcularSubtotal() {
+    return itensCarrinho.value.fold(
+      0.0,
+      (subtotal, item) => subtotal + (item.produto.preco * item.quantidade),
+    );
+  }
 }

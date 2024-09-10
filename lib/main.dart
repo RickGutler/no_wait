@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:no_wait/firebase_options.dart';
+import 'package:no_wait/pages/carrinho_page/carrinho_page.dart';
 import 'package:no_wait/pages/landing_page/landing_page.dart';
 import 'package:no_wait/pages/login_page/login_page.dart';
 import 'package:no_wait/pages/menu_page/menu_page.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LandingPage(),
         '/login': (context) => LoginPage(),
         '/menu': (context) => const MenuPage(),
+        '/carrinho': (context) => const CarrinhoPage(),
       },
       initialRoute: '/',
     );
