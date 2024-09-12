@@ -184,7 +184,10 @@ class _MenuPageState extends State<MenuPage> {
                       child: BotaoPrincipal(
                         onPressed: () {
                           if (carrinhoController.qtdItensCarrinhoTotal() > 0) {
-                            Navigator.pushNamed(context, '/carrinho');
+                            Navigator.pushNamed(context, '/carrinho')
+                                .then((value) {
+                              setState(() {});
+                            });
                           }
                         },
                         texto: 'Ver Pedido',

@@ -113,8 +113,17 @@ class _CarrinhoPageState extends State<CarrinhoPage> {
               height: 16,
             ),
             BotaoPrincipal(
-              onPressed: () {
-                print("enviarpedido");
+              onPressed: () async {
+                bool resposta = await controller.enviarPedido(
+                  controllerCarrinho.itensCarrinho.value,
+                  controllerCarrinho.calcularSubtotal(),
+                );
+
+                if (resposta == true) {
+                  controllerCarrinho.itensCarrinho.value = [];
+
+                  Navigator.of(context).pop();
+                }
               },
               texto: "Confirmar pedido",
             ),
